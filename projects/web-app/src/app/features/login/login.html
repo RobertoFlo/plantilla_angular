@@ -1,0 +1,23 @@
+<div class="flex min-h-screen items-center justify-center bg-gray-100 dark:bg-gray-900">
+    <div class="w-full max-w-md p-8 bg-gray-50 dark:bg-gray-800 rounded-xl shadow-lg"> 
+        <h2 class="text-3xl font-bold text-center text-gray-800 dark:text-white mb-8">
+            Bienvenido
+        </h2>
+        <form (submit)="onSubmit(); $event.preventDefault()">
+            <div class="mb-4 flex flex-col">
+                <label for="email" class="text-gray-800 dark:text-white">Email</label>
+                <input class="border border-gray-300 rounded px-2 py-1 dark:border-gray-600 dark:bg-gray-700 dark:text-white" type="email" id="email" name="email" placeholder="Email" [ngModel]="username()" (ngModelChange)="username.set($event)">
+               
+            </div>
+            <div class="mb-4 flex flex-col">
+                <label for="password" class="text-gray-800 dark:text-white">Contraseña</label>
+                <input class="border border-gray-300 rounded px-2 py-1 dark:border-gray-600 dark:bg-gray-700 dark:text-white" type="password" id="password" name="password" placeholder="Contraseña" [ngModel]="password()" (ngModelChange)="password.set($event)">
+                
+            </div>
+            <div class="flex justify-between mt-4">
+            <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded dark:bg-blue-600 dark:hover:bg-blue-700">Iniciar Sesión</button>
+                <a href="#" class="text-blue-500 hover:text-blue-600 mt-2">¿Olvidaste tu contraseña?</a>
+            </div>
+        </form>
+    </div>
+</div>
