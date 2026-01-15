@@ -12,9 +12,35 @@ import { Drawer as PrimeDrawer } from 'primeng/drawer';
 export class DrawerComponent {
     @ViewChild('drawerRef') drawerRef!: PrimeDrawer;
 
-    closeCallback(e: any): void {
-        this.drawerRef.visible = false;
-    }
-
+    // closeCallback(e: any): void {
+    //     this.drawerRef.visible = false;
+    // }
+    // openCallback(e: any): void {
+    //   console.log(e);
+    //     this.drawerRef.visible = true;
+    // }
+  toggleItem(item: any) {
+    item.expanded = !item.expanded;
+  }
     visible: boolean = false;
+    submenu:boolean = false;
+    menuSections = [
+    {
+      label: 'FAVORITES',
+      expanded: true, // Controla la sección principal
+      items: [
+        { label: 'Dashboard', icon: 'pi-home'},
+        { label: 'Bookmarks', icon: 'pi-bookmark'},
+        { 
+          label: 'Reports', 
+          icon: 'pi-chart-line',
+          expanded: false, // Controla el submenú de Reports
+          children: [
+            { label: 'Revenue', icon: 'pi-chart-line' },
+            { label: 'Expenses', icon: 'pi-chart-line' }
+          ]
+        }
+      ]
+    }
+  ];
 }

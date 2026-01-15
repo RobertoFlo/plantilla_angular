@@ -1,6 +1,5 @@
 import { AutoFocusModule } from 'primeng/autofocus';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { OverlayBadgeModule } from 'primeng/overlaybadge';
 import { TabsModule } from 'primeng/tabs';
@@ -108,7 +107,6 @@ import { KeyFilterModule } from 'primeng/keyfilter';
     AnimateOnScrollModule,
     TabsModule,
     FormsModule,
-    HttpClientModule,
     ReactiveFormsModule,
     AccordionModule,
     AutoCompleteModule,
@@ -208,7 +206,6 @@ import { KeyFilterModule } from 'primeng/keyfilter';
     AvatarGroupModule,
     AnimateOnScrollModule,
     FormsModule,
-    HttpClientModule,
     ReactiveFormsModule,
     AccordionModule,
     AutoCompleteModule,

@@ -1,5 +1,10 @@
 <div class="card flex justify-star">
-  <p-drawer #drawerRef [(visible)]="visible" class="fixed top-0 left-0 z-50" [maskStyle]="{'background-color': 'transparent'}">
+  <p-drawer
+    #drawerRef
+    [(visible)]="visible"
+    [maskStyle]="{ 'background-color': 'transparent' }"
+    appendTo="body"
+  >
     <ng-template #headless>
       <div class="flex flex-col h-full bg-white dark:bg-zinc-950 text-slate-700 dark:text-white">
         <div class="flex items-center justify-between px-6 pt-4 shrink-0">
@@ -88,19 +93,21 @@
           <span>
             <p-button
               type="button"
-              (click)="closeCallback($event)"
+              (click)="visible = false"
               icon="pi pi-times"
               rounded="true"
               outlined="true"
               styleClass="h-8 w-8"
+              class="cursor-pointer"
             ></p-button>
           </span>
         </div>
         <div class="overflow-y-auto">
-          <ul class="list-none p-4 m-0">
+          <ul *ngFor="let section of menuSections" class="list-none p-4 m-0">
             <li>
               <div
                 pRipple
+                 (click)="toggleItem(section)"
                 pStyleClass="@next"
                 enterFromClass="hidden"
                 enterActiveClass="animate-slidedown"
@@ -108,133 +115,49 @@
                 leaveActiveClass="animate-slideup"
                 class="p-4 flex items-center justify-between text-surface-600 dark:text-surface-200 cursor-pointer p-ripple"
               >
-                <span class="font-medium">FAVORITES</span>
-                <i class="pi pi-chevron-down"></i>
+                <span class="font-medium">{{ section.label }}</span>
+                <i class="pi pi-chevron-down ml-auto transition-transform" [class.rotate-180]="!section.expanded"></i>
               </div>
-              <ul class="list-none p-0 m-0 overflow-hidden">
-                <li>
-                  <a
+              <ul class="list-none p-0 m-0 overflow-hidden" [hidden]="!section.expanded">
+                <li *ngFor="let item of section.items">
+                  <!-- <a
                     pRipple
                     class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple"
                   >
-                    <i class="pi pi-home mr-2"></i>
-                    <span class="font-medium">Dashboard</span>
-                  </a>
-                </li>
-                <li>
-                  <a
-                    pRipple
-                    class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple"
-                  >
-                    <i class="pi pi-bookmark mr-2"></i>
-                    <span class="font-medium">Bookmarks</span>
-                  </a>
-                </li>
-                <li>
-                  <a
-                    pRipple
-                    pStyleClass="@next"
-                    enterFromClass="hidden"
-                    enterActiveClass="animate-slidedown"
-                    leaveToClass="hidden"
-                    leaveActiveClass="animate-slideup"
-                    class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple"
-                  >
-                    <i class="pi pi-chart-line mr-2"></i>
-                    <span class="font-medium">Reports</span>
-                    <i class="pi pi-chevron-down ml-auto"></i>
-                  </a>
-                  <ul
-                    class="list-none py-0 pl-4 pr-0 m-0 hidden overflow-y-hidden transition-all duration-[400ms] ease-in-out"
-                  >
-                    <li>
-                      <a
-                        pRipple
-                        pStyleClass="@next"
-                        enterFromClass="hidden"
-                        enterActiveClass="animate-slidedown"
-                        leaveToClass="hidden"
-                        leaveActiveClass="animate-slideup"
-                        class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple"
-                      >
-                        <i class="pi pi-chart-line mr-2"></i>
-                        <span class="font-medium">Revenue</span>
-                        <i class="pi pi-chevron-down ml-auto"></i>
-                      </a>
-                      <ul
-                        class="list-none py-0 pl-4 pr-0 m-0 hidden overflow-y-hidden transition-all duration-[400ms] ease-in-out"
-                      >
-                        <li>
-                          <a
-                            pRipple
-                            class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple"
-                          >
-                            <i class="pi pi-table mr-2"></i>
-                            <span class="font-medium">View</span>
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            pRipple
-                            class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple"
-                          >
-                            <i class="pi pi-search mr-2"></i>
-                            <span class="font-medium">Search</span>
-                          </a>
-                        </li>
-                      </ul>
-                    </li>
-                    <li>
-                      <a
-                        pRipple
-                        class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple"
-                      >
-                        <i class="pi pi-chart-line mr-2"></i>
-                        <span class="font-medium">Expenses</span>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-                <li>
-                  <a
-                    pRipple
-                    class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple"
-                  >
-                    <i class="pi pi-users mr-2"></i>
-                    <span class="font-medium">Team</span>
-                  </a>
-                </li>
-                <li>
-                  <a
-                    pRipple
-                    class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple"
-                  >
-                    <i class="pi pi-comments mr-2"></i>
-                    <span class="font-medium">Messages</span>
-                    <span
-                      class="inline-flex items-center justify-center ml-auto bg-primary text-primary-contrast rounded-full"
-                      style="min-width: 1.5rem; height: 1.5rem"
-                      >3</span
+                    <i class="pi {{ item.icon }} mr-2"></i>
+                    <span class="font-medium">{{ item.label }}</span>
+                  </a>  -->
+                  
+                    <a
+                      pRipple
+                      (click)="toggleItem(item)"
+                      class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple"
                     >
-                  </a>
-                </li>
-                <li>
-                  <a
-                    pRipple
-                    class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple"
-                  >
-                    <i class="pi pi-calendar mr-2"></i>
-                    <span class="font-medium">Calendar</span>
-                  </a>
-                </li>
-                <li>
-                  <a
-                    pRipple
-                    class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple"
-                  >
-                    <i class="pi pi-cog mr-2"></i>
-                    <span class="font-medium">Settings</span>
-                  </a>
+                      <i class="pi {{ item.icon }} mr-2"></i>
+                      <span class="font-medium">{{ item.label }}</span>
+                       <ng-container *ngIf="item.children">
+                      <i
+                        class="pi pi-chevron-down ml-auto transition-transform"
+                        [class.rotate-180]="item.expanded"
+                      ></i>
+                    </ng-container>
+                    </a>
+                  <ng-container *ngIf="item.children">
+                    <ul
+                      class="list-none py-0 pl-4 pr-0 m-0 overflow-hidden transition-all"
+                      [hidden]="!item.expanded"
+                    >
+                      <li *ngFor="let child of item.children">
+                        <a
+                          pRipple
+                          class="flex items-center cursor-pointer p-4 rounded-border hover:bg-surface-100 dark:hover:bg-surface-700"
+                        >
+                          <i class="pi {{ child.icon }} mr-2"></i>
+                          <span class="font-medium">{{ child.label }}</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </ng-container>
                 </li>
               </ul>
             </li>
@@ -244,6 +167,7 @@
               <div
                 pRipple
                 pStyleClass="@next"
+                (click)="submenu = !submenu"
                 enterFromClass="hidden"
                 enterActiveClass="animate-slidedown"
                 leaveToClass="hidden"
@@ -251,9 +175,9 @@
                 class="p-4 flex items-center justify-between text-surface-600 dark:text-surface-200 cursor-pointer p-ripple"
               >
                 <span class="font-medium">APPLICATION</span>
-                <i class="pi pi-chevron-down"></i>
+                <i class="pi pi-chevron-down ml-auto transition-transform" [class.rotate-180]="submenu"></i>
               </div>
-              <ul class="list-none p-0 m-0 overflow-hidden">
+              <ul class="list-none p-0 m-0 overflow-hidden" [hidden]="submenu">
                 <li>
                   <a
                     pRipple
@@ -281,6 +205,15 @@
                     <span class="font-medium">Settings</span>
                   </a>
                 </li>
+                <li>
+                  <a
+                    pRipple
+                    class="flex items-center cursor-pointer p-4 rounded-border text-red-500 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple"
+                  >
+                    <i class="pi pi-sign-in mr-2"></i>
+                    <span class="font-medium">Cerrar Sesión</span>
+                  </a>
+                </li>
               </ul>
             </li>
           </ul>
@@ -300,6 +233,10 @@
         </div>
       </div>
     </ng-template>
-  </p-drawer> 
-  <p-button styleClass="!w-12 !h-12 !rounded-full" (click)="visible = true" icon="pi pi-bars !text-2xl dark:text-white" />
+  </p-drawer>
+  <p-button
+    styleClass="!w-12 !h-12 !rounded-full"
+    (click)="visible = true"
+    icon="pi pi-bars !text-2xl dark:text-white"
+  />
 </div>
