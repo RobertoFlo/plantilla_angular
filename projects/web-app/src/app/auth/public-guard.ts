@@ -7,7 +7,7 @@ export const publicGuard: CanActivateFn = (route, state) => {
   const authService = inject(AuthService);
 
   if (authService.isAuthenticated()) {
-    router.navigate(['']);
+    router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
     return false;
   }
 

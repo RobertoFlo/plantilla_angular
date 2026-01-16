@@ -2,7 +2,7 @@ import { Component,signal,ChangeDetectionStrategy, inject } from '@angular/core'
 import {FormsModule} from '@angular/forms';
 import {LoginService} from './services/login.services';
 import { AuthService, InfUser } from '../../core/services/auth.service';
-import {Router} from '@angular/router';
+import {Router,ActivatedRoute} from '@angular/router';
 @Component({
   selector: 'app-login',
   imports: [FormsModule],
@@ -16,7 +16,8 @@ export class Login {
   password = signal('');
   private loginService = inject(LoginService);
   private authService = inject(AuthService);
-  private router = inject(Router);
+  private router = inject(Router);         // Para navegar
+  private route = inject(ActivatedRoute);  // Para leer los parámetros de la URL
 
   onSubmit() {
     const username = this.username();
@@ -40,7 +41,10 @@ export class Login {
         this.username.set('');
         this.password.set('');
         
-        this.router.navigate(['/dashboard']);
+        // 1. Usas 'route' (ActivatedRoute) para leer el parámetro
+        const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/dashboard';
+        // 2. Usas 'router' (Router) para ejecutar la navegación
+        this.router.navigateByUrl(returnUrl);
       },
       error: (error: any) => {
         console.error('Login error:', error);

@@ -1,4 +1,4 @@
-import { Routes } from '@angular/router';
+import { Routes, provideRouter } from '@angular/router';
 import { Login } from './features/login/login';
 import { authGuard } from './auth/auth-guard';
 import { publicGuard } from './auth/public-guard';
@@ -44,3 +44,6 @@ export const routes: Routes = [
     ]
   }
 ];
+
+export const appRoutes = routes;
+export const appRouterProviders = provideRouter(appRoutes);
