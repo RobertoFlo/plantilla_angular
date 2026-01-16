@@ -1,13 +1,19 @@
-import { inject } from '@angular/core';
+import { inject, PLATFORM_ID } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
+import { isPlatformBrowser } from '@angular/common';
 import { AuthService } from '../core/services/auth.service';
 
 export const authGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
   const authService = inject(AuthService);
+  // const platformId = inject(PLATFORM_ID);
+
+  // if (!isPlatformBrowser(platformId)) {
+  //   return true;
+  // }
   
   if (!authService.isAuthenticated()) {
-    router.navigate(['/']); 
+    router.navigate(['login']); 
     return false;
   }
 
@@ -17,7 +23,7 @@ export const authGuard: CanActivateFn = (route, state) => {
     const userRole = authService.getInfUser()?.rol;
     if (userRole !== expectedRole) {
       console.warn('Rol no autorizado');
-      router.navigate(['/dashboard']);
+      router.navigate(['dashboard']);
       return false;
     }
   }
@@ -27,7 +33,7 @@ export const authGuard: CanActivateFn = (route, state) => {
   if (expectedPermission) {
     if (!authService.canAction(expectedPermission)) {
       console.warn('Permiso insuficiente');
-      router.navigate(['/dashboard']);
+      router.navigate(['dashboard']);
       return false;
     }
   }

@@ -1,6 +1,7 @@
 import { AutoFocusModule } from 'primeng/autofocus';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { OverlayBadgeModule } from 'primeng/overlaybadge';
 import { TabsModule } from 'primeng/tabs';
 import { AvatarModule } from 'primeng/avatar';
@@ -297,6 +298,7 @@ import { KeyFilterModule } from 'primeng/keyfilter';
     FloatLabelModule,
     IconFieldModule,
     InputIconModule,
+    CommonModule,
     AutoFocusModule,
     OverlayBadgeModule,
           ],
