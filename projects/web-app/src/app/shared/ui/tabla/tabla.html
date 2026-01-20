@@ -1,12 +1,12 @@
 <div class="flex px-8 h-full w-full ">
     <p-table [value]="items" showGridline="true" stripedRows  style="width: 100%;" >
-        <ng-template pTemplate="header" [size]="large">
+        <ng-template pTemplate="header">
             <tr>
                 <th *ngFor="let header of header">{{header.header}}</th>
                 <th *ngIf="acciones">Acciones</th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-items [size]="large">
+        <ng-template pTemplate="body" let-items>
             <tr>
                 <td *ngFor="let header of header">
                     {{items[header.field]}}

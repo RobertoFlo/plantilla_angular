@@ -9,15 +9,10 @@ import { ProductsComponent } from './features/products/products';
 //para que funcione el guard se debe agregar la propiedad data: { expectedRole: 'Admin', expectedPermission: 'read' } a cada ruta
 //canActivate: [authGuard] funciona para proteger rutas que verifican si el usuario esta autenticado 
 export const routes: Routes = [
-  {
-    path: 'login', 
-    component: Login,
-    title: 'Login',
-    canActivate: [publicGuard]  // error aqui si quieto esto me lleva a login  y no me deja en la ruta que estaba resolver
-  },
+  
 //  {
 //   path: '',
-//   redirectTo: 'login',
+//   redirectTo: '',
 //   pathMatch: 'full'
 //  },
   {
@@ -42,7 +37,13 @@ export const routes: Routes = [
         title: 'Productos',
       }
     ]
-  }
+  },
+  {
+    path: 'login', 
+    component: Login,
+    title: 'Login',
+    canActivate: [publicGuard]  // error aqui si quieto esto me lleva a login  y no me deja en la ruta que estaba resolver
+  },
 ];
 
 export const appRoutes = routes;

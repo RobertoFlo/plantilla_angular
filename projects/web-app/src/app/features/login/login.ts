@@ -42,9 +42,10 @@ export class Login {
         this.password.set('');
         
         // 1. Usas 'route' (ActivatedRoute) para leer el parámetro
-        const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/dashboard';
+        //const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/dashboard';
         // 2. Usas 'router' (Router) para ejecutar la navegación
-        this.router.navigateByUrl(returnUrl);
+      //  this.router.navigateByUrl(returnUrl);
+       this.router.navigate(['/dashboard']);
       },
       error: (error: any) => {
         console.error('Login error:', error);

@@ -1,4 +1,4 @@
-import { Component, inject } from "@angular/core";
+import { Component, inject, OnInit } from "@angular/core";
 import { ImportsModule } from "../../imports";
 import { ProductsService } from "./services/products.services";
 import { Product, header } from "./interface/products.interface";
@@ -10,7 +10,7 @@ import { Router } from "@angular/router";
     styleUrl: './products.scss',
     imports: [ImportsModule, TablaComponent]
 })
-export class ProductsComponent {
+export class ProductsComponent implements OnInit {
     private productsService = inject(ProductsService);
     private router = inject(Router);
     products: Product[] = [];
@@ -23,11 +23,10 @@ export class ProductsComponent {
         { field: 'image', header: 'Imagen' }
     ];
     acciones:boolean = true;
-    constructor() {
+    ngOnInit(){
         this.productsService.getProducts().subscribe({
             next: (products: Product[]) => {
                 this.products = products;
-                console.log(this.products);
             },
             error: (error: any) => {
                 console.error(error);

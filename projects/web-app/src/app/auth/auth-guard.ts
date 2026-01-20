@@ -6,17 +6,13 @@ import { AuthService } from '../core/services/auth.service';
 export const authGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
   const authService = inject(AuthService);
-  // const platformId = inject(PLATFORM_ID);
 
-  // if (!isPlatformBrowser(platformId)) {
-  //   return true;
-  // }
   
   if (!authService.isAuthenticated()) {
     router.navigate(['login']); 
     return false;
   }
-
+ 
   // 2. Verificar Rol
   const expectedRole = route.data['expectedRole'];
   if (expectedRole) {
